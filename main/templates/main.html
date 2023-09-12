@@ -6,17 +6,17 @@
 <p>{{ class }}<p>
 
 <p>
-    <table bgclor="black">
-        <caption>Snacks:</caption>
-        <tr bgcolor="lightblue">
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
+    <table bgcolor="black" width="1200">
+        <caption>Snacks</caption>
+        <tr bgcolor="blue">
+            <th width="100">Name</th>
+            <th width="100">Amount</th>
+            <th width="1000">Description</th>
         </tr>
         {% for snack in snacks %}
-        <tr align="center">
-            <td>{{snack.name}}</td>
-            <td>{{snack.amount}}</td>
+        <tr bgcolor="lightblue">
+            <td align="center">{{snack.name}}</td>
+            <td align="center">{{snack.amount}}</td>
             <td>{{snack.description}}</td>
         </tr>
         {% endfor %}
