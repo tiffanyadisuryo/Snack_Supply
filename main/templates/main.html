@@ -6,15 +6,15 @@
 <p>{{ class }}<p>
 
 <p>
-    <h3>Snacks: </h3>
-    <table>
-        <tr>
+    <table bgclor="black">
+        <caption>Snacks:</caption>
+        <tr bgcolor="lightblue">
             <th>Name</th>
             <th>Amount</th>
             <th>Description</th>
         </tr>
         {% for snack in snacks %}
-        <tr>
+        <tr align="center">
             <td>{{snack.name}}</td>
             <td>{{snack.amount}}</td>
             <td>{{snack.description}}</td>
