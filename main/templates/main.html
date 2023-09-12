@@ -1,4 +1,4 @@
-<h1>Snack Supply Page</h1>
+<h1>Snack Supply</h1>
 
 <h5>Name: </h5>
 <p>{{ name }}<p>
@@ -15,9 +15,9 @@
         </tr>
         {% for snack in snacks %}
         <tr>
-            <th>{{item.name}}</th>
-            <th>{{item.amount}}</th>
-            <th>{{item.description}}</th>
+            <td>{{item.name}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.description}}</td>
         </tr>
         {% endfor %}
     </table>
