@@ -45,7 +45,7 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
 
 * Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
     
-    ![BAGAN DJANGO](C:\Users\ASUS\Documents\2kuliaahh\PBP\Tugas\Tugas2\BaganDjango.png)
+    ![BAGAN DJANGO](C:\Users\ASUS\Documents\2kuliaahh\PBP\Tugas\Tugas2\Snack_Supply\BaganDjango.png)
   
   Saat client mengakses URL, Django kemudian menggunakan 'urls.py' untuk menentukan view. View membaca dan menulis data dengan models.py sesuai permintaan. Disitu views.py akan merender halaman web menggunakan template (file.html). Akhirnya, response akan dikembalikan kepada client.
 
