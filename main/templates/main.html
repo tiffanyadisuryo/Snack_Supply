@@ -1,24 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <h1>Snack Supply</h1>
 
-<h5>Name: </h5>
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+    <h5>Name:</h5>
+    <p>{{name}}</p>
 
-<p>
-<p>
-    <table bgcolor="black" width="1200">
-        <caption><h3>Snacks</h3></caption>
-        <tr bgcolor="#a4b9c4">
-            <th width="100">Name</th>
-            <th width="100">Amount</th>
-            <th width="1000">Description</th>
-        </tr>
-        {% for snack in snacks %}
+    <h5>Class:</h5>
+    <p>{{class}}</p>
+
+<table bgcolor="black" width="1200">
+    <caption><h3>Snacks</h3></caption>
+    <tr bgcolor="#a4b9c4">
+        <th width="100">Name</th>
+        <th width="100">Amount</th>
+        <th width="800">Description</th>
+        <th width="100">Date Added</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for item in items %}
         <tr bgcolor="fffef2">
-            <td align="center">{{snack.name}}</td>
-            <td align="center">{{snack.amount}}</td>
-            <td>{{snack.description}}</td>
+            <td align="center">{{item.name}}</td>
+            <td align="center">{{item.amount}}</td>
+            <td>{{item.description}}</td>
+            <td align="center">{{item.date_added}}</td>
         </tr>
-        {% endfor %}
-    </table>
+    {% endfor %}
+</table>
+
+<br />
+
+<a href="{% url 'main:create_item' %}">
+    <button>
+        Add More Snacks
+    </button>
+</a>
+{% endblock content %}
