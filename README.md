@@ -252,6 +252,12 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
     ...
     ```
   15. Terakhir setelah git add, commit, dan push, untuk menjalankan server menggunakan perintah python manage.py runserver. Menggunakan beberapa link dibawah akan memunculkan tampilan seperti dibawah
+      ![html](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/5bb80af6-ec40-49bc-ab17-cd69499b488a)
+      ![markdown html](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/d1c94e5a-7479-4a67-b147-76768f1c5266)
+      ![xml](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/246c37a8-7dbe-46d6-b34f-e014e42e15a7)
+      ![json](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/a034b6aa-1289-4219-87aa-3404dccedc9f)
+      ![xml by id](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/0c1560e2-62fb-4621-ac62-72c975739b27)
+      ![json by id](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/5fc631ab-47f7-4886-b121-1fe9684c0020)
     
 </details>
   
