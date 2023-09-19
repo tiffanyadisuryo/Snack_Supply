@@ -82,9 +82,27 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
     3. Data tersimpan di cache karena data dikirim sebagai parameter query string di URL
     4. Panjang data yang bisa dikirimkan terbatas
     5. Cocok untuk mengakses halaman web yang datanya tidak berubah
+
 * Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+  * XML
+    1. biasa digunakan untuk memindahkan data yang tidak berubah-ubah
+    2. menggunakan tag yang mirip tag HTML
+    3. lebih sulit untuk dibaca
+  * JSON
+    1. paling sering digunakan untuk pemindahan data antara server web dan client
+    2. menggunakan format key:value
+    3. formatnya mudah dipahami sehingga mudah dibaca
+  * HTML
+    1. biasa digunakan untuk mengatur tampilan dari web tersebut
+    2. menggunakan tag HTML
+    3. relatif mudah untuk dibaca
   
 * Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+  1. format pertukaran datanya ringan dan _compact_.
+  2. syntax nya mudah dibaca dan ditulis oleh manusia.
+  3. banyak digunakan dan didukung oleh banyak bahasa pemrograman, kerangka kerja, dan pustaka.
+  4. mudah dikonversi menjadi objek JavaScript dengan JSON.parse().
+  5. berkompatibel dengan API, sebuah arsitektur untuk membuat web yang populer.
   
 * Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
   1. Pertama jalankan virtual environment
