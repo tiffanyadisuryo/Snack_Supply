@@ -128,7 +128,7 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
               {% endblock meta %}
           </head>
       
-          <body>
+          <body style="background-color: #EEA36B;">
               {% block content %}
               {% endblock content %}
           </body>
@@ -179,7 +179,17 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
           context = {'form': form}
           return render(request, "create_item.html", context)
      ```
-  9. Selanjutnya merubah fungsi show_main, bagian setelah class': 'PBP D', menjadi 'items' : items.
+  9. Untuk menunjukkan banyak jenis item (bonus), ditambahkan pada fungsi show_main, setelah baris items = Item.objects.all(), kode berikut
+      ```
+        banyak_items = len(items)
+      ```
+  lalu juga pada bagian context setelah class': 'PBP D', menjadi 
+      ```
+        ...
+        'banyak_items' : banyak_items,
+        'items' : items.
+        ...
+      ```
   10. Tidak lupa untuk import create_item di urls.py pada direktori main. Dan juga menambahkan path url ke dalam urlpatterns.
   11. Lalu membuat file baru dengan nama create_item.html di direktori templates di direktori main dengan isi sebagai berikut
      ```
@@ -206,26 +216,24 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
   12. Kemudian buka main.html dan tambahkan kode berikut di dalam {% block content %}
     ```
       <h1>Snack Supply</h1>
-      
+
           <h5>Name:</h5>
           <p>{{name}}</p>
-      
+
           <h5>Class:</h5>
           <p>{{class}}</p>
-      
+
       <table bgcolor="black" width="1200">
-          <caption><h3>Snacks</h3></caption>
-          <tr bgcolor="#a4b9c4">
+          <caption><h3>Ada {{banyak_items}} jenis Snacks yang ter-supply di dalam pantry kamu! Mau Snack apa hari ini?</h3></caption>
+          <tr bgcolor="#46B2B5">
               <th width="100">Name</th>
               <th width="100">Amount</th>
               <th width="800">Description</th>
               <th width="100">Date Added</th>
           </tr>
-      
-          {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-      
+
           {% for item in items %}
-              <tr bgcolor="fffef2">
+              <tr bgcolor="#8FD5D5">
                   <td align="center">{{item.name}}</td>
                   <td align="center">{{item.amount}}</td>
                   <td>{{item.description}}</td>
@@ -233,15 +241,15 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
               </tr>
           {% endfor %}
       </table>
-      
+
       <br />
-      
+
       <a href="{% url 'main:create_item' %}">
           <button>
               Add More Snacks
           </button>
       </a>
-      {% endblock content %}
+    {% endblock content %}
     ```
   13. Lalu buka views.py pada direktori main dan tambahkan import sebagai berikut
     ```

@@ -10,18 +10,16 @@
     <p>{{class}}</p>
 
 <table bgcolor="black" width="1200">
-    <caption><h3>Snacks</h3></caption>
-    <tr bgcolor="#a4b9c4">
+    <caption><h3>Ada {{banyak_items}} jenis Snacks yang ter-supply di dalam pantry kamu! Mau Snack apa hari ini?</h3></caption>
+    <tr bgcolor="#46B2B5">
         <th width="100">Name</th>
         <th width="100">Amount</th>
         <th width="800">Description</th>
         <th width="100">Date Added</th>
     </tr>
 
-    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
-
     {% for item in items %}
-        <tr bgcolor="fffef2">
+        <tr bgcolor="#8FD5D5">
             <td align="center">{{item.name}}</td>
             <td align="center">{{item.amount}}</td>
             <td>{{item.description}}</td>

@@ -10,10 +10,12 @@ from django.core import serializers
 
 def show_main(request):
     items = Item.objects.all()
+    banyak_items = len(items)
 
     context = {
         'name': 'Tiffany Lindy Adisuryo',
         'class': 'PBP D',
+        'banyak_items' : banyak_items,
         'items' : items
     }
 
