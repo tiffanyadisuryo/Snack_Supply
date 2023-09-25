@@ -292,4 +292,41 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
       ![json by id](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/5fc631ab-47f7-4886-b121-1fe9684c0020)
     
 </details>
+
+<details>
+<summary>Tugas 4</summary>
+
+* Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+
+  UserCreationForm merupakan sebuah form dari framework web Python, Django untuk mempermudah pembuatan user baru pada web. Terdapat permintaan data seperti username, password dengan ketentuan dan syarat tertentu, dll.
+  Kelebihan:
+  1. Sudah disediakan dahulu segala form permintaan data dan sangat mudah menggunakannya.
+  2. Terdapat validasi secara otomatis. Seperti ketentuan password yang kuat sudah disediakan.
+  3. terintegrasi dengan Django Authenticatiom.
+  Kekurangan:
+  1. Tampilan default-nya membosankan dan kurang menarik.
+  2. Walau bisa di-custom, namun terbatas.
+     
+* Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+
+  Autentikasi adalah proses verivikasi siapa yang sedang log in.
+  Otorisasi adalah proses verifikasi apakah usermemiliki akses terhadap sesuatu.
+  
+* Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna? 
+
+  Cookies merupakan sebuah file yang disimpan di device user yang saat adanya aktivitas pada sebuah web. Cookies biasa digunakan untuk menyimpan informasi seperti preferensi user, riwayat pencarian, dan juga sesi.
+  
+* Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+  1. Cross-Site Scripting
+     Terjadi serangan XSS pada cookies yang merupakan script berbahaya untuk mencuri informasi yang tersimpan.
+  2. Cookie Theft
+     Pencurian atau penggandaan cookie untuk mengakses akun user.
+  3. Cookie Poisoning
+     Terjadi pemanipulasian data dalam cookie seperti sesi dan data palsu.
+  4. Cross-Site Request Forgery
+     Terjadi serangan dimana cookie dimanfaatkan untuk melakukan tindakan seperti permintaan otorisasi palsu.
+  
+* Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+  
+</details>
   
