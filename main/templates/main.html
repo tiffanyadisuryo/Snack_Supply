@@ -16,23 +16,56 @@
         <th width="100">Amount</th>
         <th width="800">Description</th>
         <th width="100">Date Added</th>
+        <th>Finished Already?</th>
     </tr>
-
+    </style>
     {% for item in items %}
         <tr bgcolor="#8FD5D5">
             <td align="center">{{item.name}}</td>
-            <td align="center">{{item.amount}}</td>
+            <td align="center">
+                <table width="100">
+                <th width="40" align="right">{{item.amount}}</th>
+                <th width="40" align="right">
+                <a href="/add_item/{{item.pk}}/">
+                    <button class="custom-button">
+                        +
+                    </button>
+                </a><br>
+                <a href="/min_item/{{item.pk}}/">
+                    <button class="custom-button">
+                        -
+                    </button>
+                </a>
+                </th>
+                </table>
+            </td>
             <td>{{item.description}}</td>
             <td align="center">{{item.date_added}}</td>
+            <td align="center">
+                <a href="/remove_item/{{item.pk}}/">
+                    <button class="custom-button">
+                        Yummy!
+                    </button>
+                </a>
+            </td>
         </tr>
     {% endfor %}
 </table>
 
-<br />
+<br/>
 
 <a href="{% url 'main:create_item' %}">
     <button>
         Add More Snacks
     </button>
 </a>
+
+<h5>Sesi terakhir login: {{ last_login }}</h5>
+
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+
 {% endblock content %}
