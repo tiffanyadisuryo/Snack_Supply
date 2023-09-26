@@ -285,12 +285,360 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
     ...
     ```
   15. Terakhir setelah git add, commit, dan push, untuk menjalankan server menggunakan perintah python manage.py runserver. Menggunakan beberapa link dibawah akan memunculkan tampilan seperti dibawah
-      ![html](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/5bb80af6-ec40-49bc-ab17-cd69499b488a)
       ![markdown html](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/d1c94e5a-7479-4a67-b147-76768f1c5266)
       ![xml](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/246c37a8-7dbe-46d6-b34f-e014e42e15a7)
       ![json](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/a034b6aa-1289-4219-87aa-3404dccedc9f)
       ![xml by id](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/0c1560e2-62fb-4621-ac62-72c975739b27)
       ![json by id](https://github.com/tiffanyadisuryo/Snack_Supply/assets/119838581/5fc631ab-47f7-4886-b121-1fe9684c0020)
     
+</details>
+
+<details>
+<summary>Tugas 4</summary>
+
+* Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
+
+  UserCreationForm merupakan sebuah form dari framework web Python, Django untuk mempermudah pembuatan user baru pada web. Terdapat permintaan data seperti username, password dengan ketentuan dan syarat tertentu, dll.
+  Kelebihan:
+  1. Sudah disediakan dahulu segala form permintaan data dan sangat mudah menggunakannya.
+  2. Terdapat validasi secara otomatis. Seperti ketentuan password yang kuat sudah disediakan.
+  3. terintegrasi dengan Django Authenticatiom.
+  Kekurangan:
+  1. Tampilan default-nya membosankan dan kurang menarik.
+  2. Walau bisa di-custom, namun terbatas.
+     
+* Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
+
+  Autentikasi adalah proses verivikasi siapa yang sedang log in.
+  Otorisasi adalah proses verifikasi apakah usermemiliki akses terhadap sesuatu.
+  
+* Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna? 
+
+  Cookies merupakan sebuah file yang disimpan di device user yang saat adanya aktivitas pada sebuah web. Cookies biasa digunakan untuk menyimpan informasi seperti preferensi user, riwayat pencarian, dan juga sesi.
+  
+* Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+  1. Cross-Site Scripting: Terjadi serangan XSS pada cookies yang merupakan script berbahaya untuk mencuri informasi yang tersimpan.
+  3. Cookie Theft: Pencurian atau penggandaan cookie untuk mengakses akun user.
+  4. Cookie Poisoning: Terjadi pemanipulasian data dalam cookie seperti sesi dan data palsu.
+  5. Cross-Site Request Forgery: Terjadi serangan dimana cookie dimanfaatkan untuk melakukan tindakan seperti permintaan otorisasi palsu.
+  
+* Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+  1. Mengubah views.py pada subdirektori main dengan kode berikut:
+     ```
+        from django.shortcuts import render
+        from django.http import HttpResponseRedirect
+        from main.forms import ItemForm
+        from django.urls import reverse
+        from main.models import Item
+        from django.http import HttpResponse
+        from django.core import serializers
+        from django.shortcuts import redirect
+        from django.contrib.auth.forms import UserCreationForm
+        from django.contrib import messages  
+        from django.contrib.auth import authenticate, login
+        from django.contrib.auth import logout
+        from django.contrib.auth.decorators import login_required
+        import datetime
+        
+        # Create your views here.
+        
+        @login_required(login_url='/login')
+        def show_main(request):
+            items = Item.objects.filter(user=request.user)
+            banyak_items = len(items)
+        
+            context = {
+                'name': request.user.username,
+                'class': 'PBP D',
+                'banyak_items' : banyak_items,
+                'items' : items,
+                'last_login': request.COOKIES['last_login'],
+            }
+        
+            return render(request, "main.html", context)
+        
+        def create_item(request):
+            form = ItemForm(request.POST or None)
+        
+            if form.is_valid() and request.method == "POST":
+                item = form.save(commit=False)
+                item.user = request.user
+                item.save()
+                return HttpResponseRedirect(reverse('main:show_main'))
+        
+            context = {'form': form}
+            return render(request, "create_item.html", context)
+        
+        def show_xml(request):
+            data = Item.objects.all()
+            return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+        
+        def show_json(request):
+            data = Item.objects.all()
+            return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+        
+        def show_xml_by_id(request, id):
+            data = Item.objects.filter(pk=id)
+            return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+        
+        def show_json_by_id(request, id):
+            data = Item.objects.filter(pk=id)
+            return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+        
+        def register(request):
+            form = UserCreationForm()
+        
+            if request.method == "POST":
+                form = UserCreationForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Your account has been successfully created!')
+                    return redirect('main:login')
+            context = {'form':form}
+            return render(request, 'register.html', context)
+        
+        def login_user(request):
+            if request.method == 'POST':
+                username = request.POST.get('username')
+                password = request.POST.get('password')
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    response = HttpResponseRedirect(reverse("main:show_main")) 
+                    response.set_cookie('last_login', str(datetime.datetime.now()))
+                    return response
+                else:
+                    messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+            context = {}
+            return render(request, 'login.html', context)
+        
+        def logout_user(request):
+            logout(request)
+            response = HttpResponseRedirect(reverse('main:login'))
+            response.delete_cookie('last_login')
+            return response
+        
+        def add_item(request, id):
+            data = Item.objects.get(pk=id)
+            data.amount +=1
+            data.save()
+            return redirect('main:show_main')
+        
+        def min_item(request, id):
+            data = Item.objects.get(pk=id)
+            data.amount -=1
+            data.save()
+            if (data.amount <= 0):
+                data.delete()
+            return redirect('main:show_main')
+        
+        def remove_item(request, id):
+            data = Item.objects.get(pk=id)
+            data.delete()
+            return redirect('main:show_main')
+     ```
+     Penambahan berbagai import untuk function baru yang ditambahkan. "@login_required(login_url='/login')" digunakan agar sebelum bisa mengakses main.html, harus login terlebih dahulu. Nama yang akan muncul bergantung pada username setelah login berhasil. Menggunakan "UserCreationForm(request.POST)" untuk membuat halaman register yang merupakan framework. Function login user digunakan untuk menyertakan perintah bila user menekan tombol login, sama dengan logout_user. Function add_item digunakan untuk menyertakan perintah bila user menekan tombol "+" untuk menambah amount dari item sesuai dengan pk-nya. Function min_item digunakan untuk menyertakan perintah bila user menekan tombol "-" untuk mengurangi amount dari item sesuai dengan pk-nya, dan jika amount <=0 maka akan langsung dihapus item tersebut dari tabel. Function remove_item digunakan untuk menyertakan perintah bila user menekan tombol "Yummy!" untuk menghilangkan baris item tersebut dari tabel sesuai dengan pk-nya.
+  2. Mengubah urls.py pada subdirektori main dengan kode berikut:
+     ```
+        from django.urls import path
+        from main.views import show_main
+        from main.views import show_main, create_item, show_xml, show_json, show_xml_by_id, show_json_by_id 
+        from main.views import register 
+        from main.views import login_user
+        from main.views import logout_user
+        from main.views import add_item
+        from main.views import min_item
+        from main.views import remove_item
+        
+        app_name = 'main'
+        
+        urlpatterns = [
+            path('', show_main, name='show_main'),
+            path('create_item', create_item, name='create_item'),
+            path('xml/', show_xml, name='show_xml'), 
+            path('json/', show_json, name='show_json'), 
+            path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+            path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+            path('register/', register, name='register'),
+            path('login/', login_user, name='login'),
+            path('logout/', logout_user, name='logout'),
+            path('add_item/<int:id>/', add_item, name='add_item'),
+            path('min_item/<int:id>/', min_item, name='min_item'),
+            path('remove_item/<int:id>/', remove_item, name='remove_item'),
+        ]
+     ```
+     Mengimport semua button yang ditambahkan di views.py. Kemudian membuat path agar saat tombol ditekan request akan disampaikan menggunakan url dan function dari views.py akan dijalankan. Terdapat /<int:id>/ untuk add_item, min_item, dan remove_item agar spesifik dengan item yang dimaksud.
+  3. Mengganti dengan kode berikut pada models.py di subdirektori main
+     ```
+        from django.db import models
+        from django.contrib.auth.models import User
+        
+        class Item(models.Model):
+            user = models.ForeignKey(User, on_delete=models.CASCADE)
+            name = models.CharField(max_length=255)
+            date_added = models.DateField(auto_now_add=True)
+            amount = models.IntegerField()
+            description = models.TextField()
+     ```
+     Bagian yang ditambahkan adalah "user = models.ForeignKey(User, on_delete=models.CASCADE)" yang berfungsi untuk menghubungkan antara list item dan user-nya.
+  4. membuat file baru dengan nama login.html pada subdirektori main/templates/ dengan isi
+     ```
+        {% extends 'base.html' %}
+        
+        {% block meta %}
+            <title>Login</title>
+        {% endblock meta %}
+        
+        {% block content %}
+        
+        <div class = "login">
+        
+            <h1>Login</h1>
+        
+            <form method="POST" action="">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>Username: </td>
+                        <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                    </tr>
+                            
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                    </tr>
+        
+                    <tr>
+                        <td></td>
+                        <td><input class="btn login_btn" type="submit" value="Login"></td>
+                    </tr>
+                </table>
+            </form>
+        
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}     
+                
+            Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+        
+        </div>
+        {% endblock content %}
+     ```
+  5. membuat file baru dengan nama register.html pada subdirektori main/templates/ dengan isi
+     ```
+        {% extends 'base.html' %}
+        
+        {% block meta %}
+            <title>Register</title>
+        {% endblock meta %}
+        
+        {% block content %}  
+        
+        <div class = "login">
+            
+            <h1>Register</h1>  
+        
+                <form method="POST" >  
+                    {% csrf_token %}  
+                    <table>  
+                        {{ form.as_table }}  
+                        <tr>  
+                            <td></td>
+                            <td><input type="submit" name="submit" value="Daftar"/></td>  
+                        </tr>  
+                    </table>  
+                </form>
+        
+            {% if messages %}  
+                <ul>   
+                    {% for message in messages %}  
+                        <li>{{ message }}</li>  
+                        {% endfor %}  
+                </ul>   
+            {% endif %}
+        
+        </div>  
+        
+        {% endblock content %}
+      ```
+  6. Mengganti isi main.html dengan kode tersebut
+      ```
+      {% extends 'base.html' %}
+      
+      {% block content %}
+      <h1>Snack Supply</h1>
+      
+          <h5>Name:</h5>
+          <p>{{name}}</p>
+      
+          <h5>Class:</h5>
+          <p>{{class}}</p>
+      
+      <table bgcolor="black" width="1200">
+          <caption><h3>Ada {{banyak_items}} jenis Snacks yang ter-supply di dalam pantry kamu! Mau Snack apa hari ini?</h3></caption>
+          <tr bgcolor="#46B2B5">
+              <th width="100">Name</th>
+              <th width="100">Amount</th>
+              <th width="800">Description</th>
+              <th width="100">Date Added</th>
+              <th>Finished Already?</th>
+          </tr>
+          {% for item in items %}
+              <tr bgcolor="#8FD5D5">
+                  <td align="center">{{item.name}}</td>
+                  <td align="center">
+                      <table width="100">
+                      <th width="40" align="right">{{item.amount}}</th>
+                      <th width="40" align="right">
+                      <a href="/add_item/{{item.pk}}/">
+                          <button class="custom-button">
+                              +
+                          </button>
+                      </a><br>
+                      <a href="/min_item/{{item.pk}}/">
+                          <button class="custom-button">
+                              -
+                          </button>
+                      </a>
+                      </th>
+                      </table>
+                  </td>
+                  <td>{{item.description}}</td>
+                  <td align="center">{{item.date_added}}</td>
+                  <td align="center">
+                      <a href="/remove_item/{{item.pk}}/">
+                          <button class="custom-button">
+                              Yummy!
+                          </button>
+                      </a>
+                  </td>
+              </tr>
+          {% endfor %}
+      </table>
+      
+      <br/>
+      
+      <a href="{% url 'main:create_item' %}">
+          <button>
+              Add More Snacks
+          </button>
+      </a>
+      
+      <h5>Sesi terakhir login: {{ last_login }}</h5>
+      
+      <a href="{% url 'main:logout' %}">
+          <button>
+              Logout
+          </button>
+      </a>
+      
+      {% endblock content %}
+      ```
+      Bagian button '+' dan '-' saya letakan di cell yang sama dengan amount, dan penyusunannya menggunakan tabel 'rahasia'. Tombol remove terdapat di paling kanan. Tulisan sesi terdapat diantara tombol add more snacks dan logout.
+  7. Karena models.py diganti maka tentu harus run "python manage.py makemigrations" pada command prompt. Pilih 1 untuk menetapkan default value untuk field user pada semua row yang telah dibuat pada basis data. Ketik angka 1 lagi untuk menetapkan user dengan ID 1 (yang sudah kita buat sebelumnya) pada model yang sudah ada. Lalu tidak lupa untuk run "python manage.py migrate".
 </details>
   
