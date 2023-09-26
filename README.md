@@ -638,7 +638,7 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
       
       {% endblock content %}
       ```
-      Bagian button '+' dan '-' saya letakan di cell yang sama dengan amount, dan penyusunannya menggunakan tabel 'rahasia'. Tombol remove terdapat di paling kanan. Tulisan sesi terdapat diantara tombol add more snacks dan logout.
+      Bagian button '+' dan '-' saya letakan di cell yang sama dengan amount, dan penyusunannya menggunakan tabel 'rahasia' sehingga posisinya lebih teratur dan rapih. Tombol remove terdapat di paling kanan. Tulisan sesi terdapat diantara tombol add more snacks dan logout.
   7. Karena models.py diganti maka tentu harus run "python manage.py makemigrations" pada command prompt. Pilih 1 untuk menetapkan default value untuk field user pada semua row yang telah dibuat pada basis data. Ketik angka 1 lagi untuk menetapkan user dengan ID 1 (yang sudah kita buat sebelumnya) pada model yang sudah ada. Lalu tidak lupa untuk run "python manage.py migrate".
 </details>
   
