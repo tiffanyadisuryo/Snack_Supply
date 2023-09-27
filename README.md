@@ -299,10 +299,12 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
 * Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?
 
   UserCreationForm merupakan sebuah form dari framework web Python, Django untuk mempermudah pembuatan user baru pada web. Terdapat permintaan data seperti username, password dengan ketentuan dan syarat tertentu, dll.
+
   Kelebihan:
   1. Sudah disediakan dahulu segala form permintaan data dan sangat mudah menggunakannya.
   2. Terdapat validasi secara otomatis. Seperti ketentuan password yang kuat sudah disediakan.
   3. terintegrasi dengan Django Authenticatiom.
+  
   Kekurangan:
   1. Tampilan default-nya membosankan dan kurang menarik.
   2. Walau bisa di-custom, namun terbatas.
