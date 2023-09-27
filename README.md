@@ -309,14 +309,16 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
      
 * Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?
 
-  Autentikasi adalah proses verivikasi siapa yang sedang log in.
-  Otorisasi adalah proses verifikasi apakah usermemiliki akses terhadap sesuatu.
+  Autentikasi adalah proses verivikasi identitas sesorang yang sedang log in. Karena tanpa Autentikasi maka siapa saja bisa login ke sebuah akun yang bukan milik mereka dan mengambil informasi-informasi yang terikat dengan akun tersebut.
+  Otorisasi adalah proses verifikasi apakah user memiliki akses terhadap sesuatu. Karena tanpa otorisasi semua orang bisa mengakses semua data yang juga berbahaya karena siapapun dapat melakukan tindakan kriminal
   
 * Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna? 
 
-  Cookies merupakan sebuah file yang disimpan di device user yang saat adanya aktivitas pada sebuah web. Cookies biasa digunakan untuk menyimpan informasi seperti preferensi user, riwayat pencarian, dan juga sesi.
+  Cookies merupakan sebuah file yang disimpan di device user yang saat adanya aktivitas pada sebuah web. Cookies biasa digunakan untuk menyimpan informasi seperti preferensi user, riwayat pencarian, dan juga sesi. Maka cara cookie menyimpan sesi adalah dengan menyimpan id sesi ke dalam komputer yang kemudian dipasangkan ke suatu struktur data seperti username.
   
 * Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
+
+  Walau pada kondisi biasa cookie tidak berbahaya namun berikut adalah beberapa hal yang bisa diwaspadai:
   1. Cross-Site Scripting: Terjadi serangan XSS pada cookies yang merupakan script berbahaya untuk mencuri informasi yang tersimpan.
   3. Cookie Theft: Pencurian atau penggandaan cookie untuk mengakses akun user.
   4. Cookie Poisoning: Terjadi pemanipulasian data dalam cookie seperti sesi dan data palsu.
