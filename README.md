@@ -645,4 +645,56 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
       Bagian button '+' dan '-' saya letakan di cell yang sama dengan amount, dan penyusunannya menggunakan tabel 'rahasia' sehingga posisinya lebih teratur dan rapih. Tombol remove terdapat di paling kanan. Tulisan sesi terdapat diantara tombol add more snacks dan logout.
   7. Karena models.py diganti maka tentu harus run "python manage.py makemigrations" pada command prompt. Pilih 1 untuk menetapkan default value untuk field user pada semua row yang telah dibuat pada basis data. Ketik angka 1 lagi untuk menetapkan user dengan ID 1 (yang sudah kita buat sebelumnya) pada model yang sudah ada. Lalu tidak lupa untuk run "python manage.py migrate".
 </details>
+
+<details>
+<summary>Tugas 5</summary>
+
+1. Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+   Element selector adalah pemilihan elemen HTML tertentu di web untuk menerapkan aturan tertentu yang akan ditampilkan.
+   1. Selector Universal = memilih semua elemen di halaman web. Digunakan saat menetapkan gaya default untuk semua elemen.
+   2. Selector elemen = memilih elemen html untuk menerapkan desain dan aturan CSS. Digunakan saat ingin mengaplikasikan sebuah design atau aturan pada elemen bertipe sama.
+   3. Selector Class = pengelompokan elemen yang bersifat sama untuk menerapkan sebuah design.
+   4. Selector Id = identifikasi elemen menggunakan id.
+   5. Selector atribut = pemilihan elemen menurut atributnya.
+      
+2. Jelaskan HTML5 Tag yang kamu ketahui.
+
+   head : berisi bagian head yang biasa terdiri dari judul, link stylesheet, dan meta tag.
+
+   body : berisi bagian utama halaman yang biasa terdiri dari teks, loink, form, gambar, dll.
+
+   h1, h2, h3, h4, h5, h6 : menandakan heading, yang mengatur size font.
+
+   div : mengkotakkan bagian dari elemen untuk memudahkan formatting.
+
+   form : membuat formulir untuk menerima input dari pengguna.
+
+   button : membuat button.
+
+   video, audio : insert video atau audio ke halaman web.
+
+   nav : insert navigasi untuk halaman web.
+   
+3. Jelaskan perbedaan antara margin dan padding.
+   1. Margin:
+      mengatur jarak antara sebuah elemen dengan elemen lain di sekitarnya. Margin tidak mempengaruhi background elemen atau border.
+   2. Padding:
+      mengatur jarak antara konten elemen dengan border elemennya. Mempengaruhi background elemen dan border.
+      
+4. Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+   Tailwind:
+   * metode design menerapkan pendekatan "utility-first" yaitu membuat interface dengan gabungan class yang terdiri dari properti CSS.
+   * fleksibilitasnya tinggi.
+   * penyesuaian melalui class langsun pada HTML.
+   
+   Bootstrap:
+   * metode design menerapkan pendekatan "component-based" yaitu elemen UI dipaketkan di komponen.
+   * komponennya siap pakai.
+   * memisahkan logic dan design.
+  
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+</details>
   
