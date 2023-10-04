@@ -687,7 +687,7 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
    Tailwind:
    * metode design menerapkan pendekatan "utility-first" yaitu membuat interface dengan gabungan class yang terdiri dari properti CSS.
    * fleksibilitasnya tinggi.
-   * penyesuaian melalui class langsun pada HTML.
+   * penyesuaian melalui class langsung pada HTML.
    
    Bootstrap:
    * metode design menerapkan pendekatan "component-based" yaitu elemen UI dipaketkan di komponen.
@@ -695,6 +695,287 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
    * memisahkan logic dan design.
   
 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
-
+    1. Pada bagian base.html di dalam direktori templates ganti kode menjadi seperti ini
+       ```
+          {% load static %}
+          <!DOCTYPE html>
+          <html lang="en">
+              <head>
+                  <meta charset="UTF-8" />
+                  <meta
+                      name="viewport"
+                      content="width=device-width, initial-scale=1.0"
+                  />
+                  {% block meta %}
+                  {% endblock meta %}
+                  <style>
+                      /* Fonts Form Google Font ::- https://fonts.google.com/  -:: */
+                      @import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+                      /* End Fonts */
+                      /* Start Global rules */
+                      * {
+                          padding: 0;
+                          margin: 0;
+                          box-sizing: border-box;
+                      }
+                      /* End Global rules */
+                      
+                      /* Start body rules */
+                      body {
+                          background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+                          background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+                          background-attachment: fixed;
+                          background-repeat: no-repeat;
+                      
+                          font-family: 'Vibur', cursive;
+                      /*   the main font */
+                          font-family: 'Abel', sans-serif;
+                          opacity: .95;
+                      /* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+                      } 
+                      </style>
+              </head>
+          
+              <body>
+                  {% block content %}
+                  {% endblock content %}
+              </body>
+          </html>
+       ```
+       ini dilakukan untuk mengganti background semua page dari web aplikasi. Saya memilih desain linear gradient yang berarti terdapat 2 warna yang gradien dari warna pink menuju ke biru. Lalu untuk font saya memilih mengambil font dari internet.
+   2. Kemudian pada main.html di dalam direktori main/templates ganti kode sebagai berikut
+      ```
+        {% extends 'base.html' %}
+        
+        {% block content %}
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+            }
+        
+            .container-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+            
+            table {
+              width: 95%; /* Adjust the width as needed */
+              margin: 0 auto; /* Center the table horizontally */
+            }
+        
+            button {
+                display: inline-block;
+                color: #252537;
+              
+                padding: 0 10px;
+                background: #fff7f6;
+                border-radius: 5px;
+                
+                outline: none;
+                border: none;
+              
+                cursor: pointer;
+                text-align: center;
+                transition: all 0.2s linear;
+                
+                margin: 7% auto; 
+                letter-spacing: 0.05em;
+            } 
+        
+            .centered-button {
+                justify-content: center;
+                align-items: center;
+                margin: 7% auto;
+            }
+            
+            /* buttons hover */
+            button:hover {
+                transform: translatey(3px);
+                box-shadow: none;
+            }
+            
+            /* buttons hover Animation */
+            button:hover {
+                animation: ani9 0.4s ease-in-out infinite alternate;
+            }
+            @keyframes ani9 {
+                0% {
+                    transform: translateY(3px);
+                }
+                100% {
+                    transform: translateY(5px);
+                }
+            } 
+            th, td {
+                padding: 5px;
+            }
+        </style>
+        <div class="container-body">
+            <h1 align="center">Snack Supply 🍨🍫🍩🍟🤤</h1>
+                <br>
+        
+                <h3 align="center">Name:</h3>
+                <p align="center">{{name}}</p>
+                <br>
+        
+                <h3 align="center">Class:</h3>
+                <p align="center">{{class}}</p>
+                <br>
+        
+            <table bgcolor="black" width="1200">
+                <caption><h3>Ada {{banyak_items}} jenis Snacks yang ter-supply di dalam pantry kamu! Mau Snack apa hari ini?</h3></caption>
+                <tr bgcolor="#7CA1D9">
+                    <th width="100">Name</th>
+                    <th width="100">Amount</th>
+                    <th width="800">Description</th>
+                    <th width="100">Date Added</th>
+                    <th>Finished Already?</th>
+                </tr>
+                </style>
+                {% for item in items %}
+                    <tr bgcolor="#BEC3EA">
+                        <td align="center">{{item.name}}</td>
+                        <td align="center">
+                            <table width="100">
+                            <th width="40" align="right">{{item.amount}}</th>
+                            <th width="40" align="center">
+                            <a href="/add_item/{{item.pk}}/">
+                                <button class="custom-button">
+                                    +
+                                </button>
+                            </a><br>
+                            <a href="/min_item/{{item.pk}}/">
+                                <button class="custom-button">
+                                    -
+                                </button>
+                            </a>
+                            </th>
+                            </table>
+                        </td>
+                        <td>{{item.description}}</td>
+                        <td align="center">{{item.date_added}}</td>
+                        <td align="center">
+                            <a href="/remove_item/{{item.pk}}/">
+                                <button class="custom-button">
+                                    Yummy! 😋
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br>
+        
+            <a href="{% url 'main:create_item' %}">
+                <button class="centered-button">
+                    Add More Snacks
+                </button>
+            </a>
+        
+            <h5 align="center">Sesi terakhir login: {{ last_login }}</h5>
+        
+            <a href="{% url 'main:logout' %}">
+                <button class="centered-button">
+                    Logout
+                </button>
+            </a>
+        </div>
+        
+        {% endblock content %}
+      ```
+      Perubahan terdapat pada penambahan style. Untuk di main saya membuat body berada pada tengah webpage kemudian button memiliki sedikit animasi hovering yaitu pergerakan atas bawah. Terakhir tentunya pewarnaan pada tabel, penggunaan font baru dan juga desain button.
+   3. Selanjutnya penambahan style pada create_item.html, login.html, dan register.html seperti berikut
+      ```
+          <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+    
+        .container-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        /* Start form  attributes */
+        form {
+            width: 325px;
+            min-height: 150px;
+            height: auto;
+            border-radius: 5px;
+            margin: 2% auto;
+            box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+            padding: 2%;
+            background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+        }
+        /* form Container */
+        form .con {
+            display: -webkit-flex;
+            display: flex;
+          
+            -webkit-justify-content: space-around;
+            justify-content: space-around;
+          
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+          
+              margin: 0 auto;
+        }
+        
+        /* the header form form */
+        header {
+            margin: 2% auto 10% auto;
+            text-align: center;
+        }
+        /* register title form form */
+        header h2 {
+            font-size: 250%;
+            font-family: 'Playfair Display', serif;
+            color: #3e403f;
+        }
+        /*  A welcome message or an explanation of the register form */
+        header p {letter-spacing: 0.05em;}
+    
+        .input-item {
+            background: #fff;
+            color: #333;
+            padding: 14.5px 0px 15px 9px;
+            border-radius: 5px 0px 0px 5px;
+        }
+        
+        /* inputs form  */
+        input[class="form-input"]{
+            width: 240px;
+            height: 50px;
+          
+            margin-top: 2%;
+            padding: 15px;
+            
+            font-size: 16px;
+            font-family: 'Abel', sans-serif;
+            color: #5E6472;
+          
+            outline: none;
+            border: none;
+          
+            border-radius: 0px 5px 5px 0px;
+            transition: 0.2s linear;
+            
+        }
+        input[id="txt-input"] {width: 250px;}
+        /* focus  */
+        input:focus {
+            transform: translateX(-2px);
+            border-radius: 5px;
+        }
+        </style>
+    ```
+    Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. 
 </details>
   
