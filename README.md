@@ -891,91 +891,91 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
    3. Selanjutnya penambahan style pada create_item.html, login.html, dan register.html seperti berikut
       ```
           <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-        }
-    
-        .container-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        /* Start form  attributes */
-        form {
-            width: 325px;
-            min-height: 150px;
-            height: auto;
-            border-radius: 5px;
-            margin: 2% auto;
-            box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
-            padding: 2%;
-            background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
-        }
-        /* form Container */
-        form .con {
-            display: -webkit-flex;
-            display: flex;
-          
-            -webkit-justify-content: space-around;
-            justify-content: space-around;
-          
-            -webkit-flex-wrap: wrap;
-            flex-wrap: wrap;
-          
-              margin: 0 auto;
-        }
-        
-        /* the header form form */
-        header {
-            margin: 2% auto 10% auto;
-            text-align: center;
-        }
-        /* register title form form */
-        header h2 {
-            font-size: 250%;
-            font-family: 'Playfair Display', serif;
-            color: #3e403f;
-        }
-        /*  A welcome message or an explanation of the register form */
-        header p {letter-spacing: 0.05em;}
-    
-        .input-item {
-            background: #fff;
-            color: #333;
-            padding: 14.5px 0px 15px 9px;
-            border-radius: 5px 0px 0px 5px;
-        }
-        
-        /* inputs form  */
-        input[class="form-input"]{
-            width: 240px;
-            height: 50px;
-          
-            margin-top: 2%;
-            padding: 15px;
+          body, html {
+              height: 100%;
+              margin: 0;
+          }
+      
+          .container-body {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+          }
+          /* Start form  attributes */
+          form {
+              width: 325px;
+              min-height: 150px;
+              height: auto;
+              border-radius: 5px;
+              margin: 2% auto;
+              box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+              padding: 2%;
+              background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+          }
+          /* form Container */
+          form .con {
+              display: -webkit-flex;
+              display: flex;
             
-            font-size: 16px;
-            font-family: 'Abel', sans-serif;
-            color: #5E6472;
-          
-            outline: none;
-            border: none;
-          
-            border-radius: 0px 5px 5px 0px;
-            transition: 0.2s linear;
+              -webkit-justify-content: space-around;
+              justify-content: space-around;
             
-        }
-        input[id="txt-input"] {width: 250px;}
-        /* focus  */
-        input:focus {
-            transform: translateX(-2px);
-            border-radius: 5px;
-        }
-        </style>
+              -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
+            
+                margin: 0 auto;
+          }
+          
+          /* the header form form */
+          header {
+              margin: 2% auto 10% auto;
+              text-align: center;
+          }
+          /* register title form form */
+          header h2 {
+              font-size: 250%;
+              font-family: 'Playfair Display', serif;
+              color: #3e403f;
+          }
+          /*  A welcome message or an explanation of the register form */
+          header p {letter-spacing: 0.05em;}
+      
+          .input-item {
+              background: #fff;
+              color: #333;
+              padding: 14.5px 0px 15px 9px;
+              border-radius: 5px 0px 0px 5px;
+          }
+          
+          /* inputs form  */
+          input[class="form-input"]{
+              width: 240px;
+              height: 50px;
+            
+              margin-top: 2%;
+              padding: 15px;
+              
+              font-size: 16px;
+              font-family: 'Abel', sans-serif;
+              color: #5E6472;
+            
+              outline: none;
+              border: none;
+            
+              border-radius: 0px 5px 5px 0px;
+              transition: 0.2s linear;
+              
+          }
+          input[id="txt-input"] {width: 250px;}
+          /* focus  */
+          input:focus {
+              transform: translateX(-2px);
+              border-radius: 5px;
+          }
+          </style>
       ```
-    Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. Container kemudian diletakkan di tengah web page juga.
+      Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. Container kemudian diletakkan di tengah web page juga.
 </details>
   
