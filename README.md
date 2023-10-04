@@ -975,7 +975,7 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
             border-radius: 5px;
         }
         </style>
-    ```
-  Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. Container kemudian diletakkan di tengah web page juga.
+      ```
+    Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. Container kemudian diletakkan di tengah web page juga.
 </details>
   
