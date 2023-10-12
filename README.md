@@ -989,13 +989,16 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
 2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
 
    even driven proramming adalah pendekatana pemrograman dimana alur eksekusi program ditentukan oleh events yang terjadi selama runtime. 
-   contohnya pada program ini adalah....
+   contohnya pada program ini adalah
+   ```
+     document.getElementById("button_add").onclick = addItem
+   ```
    
-3. Jelaskan penerapan asynchronous programming pada AJAX.
+4. Jelaskan penerapan asynchronous programming pada AJAX.
 
    pendekatan permintaan data ke server dan penangan respons dari server dilakukan secara asynchronous, sehingga tidak menghalangi fungsi lain yang sedang dijalankan.
    
-4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+5. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
 
   * Fetch API:
     - penangan yang lebih baik terhadap respons dan kesalahan
@@ -1012,6 +1015,293 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
   
 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
    
+  a. Ganti kode di dalam main/templates/main.html menjadi berikut
+   ```
+         {% extends 'base.html' %}
+      
+      {% block content %}
+      <head>
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+J4jsl5c9zdLKaUk5Ae5f5b1bw6AUn5f5v8FZJoMxm6f5cH1" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+      </head>
+      
+      <style>
+          body, html {
+              height: 100%;
+              margin: 0;
+          }
+      
+          body {
+              overflow-y: auto;
+          }
+          
+          .card {
+              flex-direction: row;
+              float: left;
+              margin: 20px;
+              margin-top: 0;
+          }
+      
+      
+          .container-body {
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+          }
+          
+          table {
+            width: 95%; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the table horizontally */
+          }
+      
+          button {
+              display: inline-block;
+              color: #252537;
+            
+              padding: 0 10px;
+              background: #ffd9d5;
+              border-radius: 5px;
+              
+              outline: none;
+              border: none;
+            
+              cursor: pointer;
+              text-align: center;
+              transition: all 0.2s linear;
+              
+              margin: 7% auto; 
+              letter-spacing: 0.05em;
+          } 
+      
+          .centered-button {
+              justify-content: center;
+              align-items: center;
+              margin: 7% auto;
+          }
+          
+          /* buttons hover */
+          button:hover {
+              transform: translatey(3px);
+              box-shadow: none;
+          }
+          
+          /* buttons hover Animation */
+          button:hover {
+              animation: ani9 0.4s ease-in-out infinite alternate;
+          }
+          @keyframes ani9 {
+              0% {
+                  transform: translateY(3px);
+              }
+              100% {
+                  transform: translateY(5px);
+              }
+          } 
+          th, td {
+              padding: 5px;
+          }
+      </style>
+      <body>
+      <div class="container-body">
+      
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Snack</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <form id="form" onsubmit="return false;">
+                          {% csrf_token %}
+                          <div class="mb-3">
+                              <label for="name" class="col-form-label">Name:</label>
+                              <input type="text" class="form-control" id="name" name="name"></input>
+                          </div>
+                          <div class="mb-3">
+                              <label for="amount" class="col-form-label">Amount:</label>
+                              <input type="number" class="form-control" id="amount" name="amount"></input>
+                          </div>
+                          <div class="mb-3">
+                              <label for="description" class="col-form-label">Description:</label>
+                              <textarea class="form-control" id="description" name="description"></textarea>
+                          </div>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+          <h1 align="center">Snack Supply 🍨🍫🍩🍟🤤</h1>
+              <br>
+      
+              <h3 align="center">Name:</h3>
+              <p align="center">{{name}}</p>
+              <br>
+      
+              <h3 align="center">Class:</h3>
+              <p align="center">{{class}}</p>
+              <br>
+      
+          <div id="item_card"></div>
+      
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Item by AJAX</button>
+      
+          <table bgcolor="black" width="1200">
+              <caption><h3>Ada {{banyak_items}} jenis Snacks yang ter-supply di dalam pantry kamu! Mau Snack apa hari ini?</h3></caption>
+              <tr bgcolor="#7CA1D9">
+                  <th width="100">Name</th>
+                  <th width="100">Amount</th>
+                  <th width="800">Description</th>
+                  <th width="100">Date Added</th>
+                  <th>Finished Already?</th>
+              </tr>
+              </style>
+              {% for item in items %}
+                  <tr bgcolor="#BEC3EA">
+                      <td align="center">{{item.name}}</td>
+                      <td align="center">
+                          <table width="100">
+                          <th width="40" align="right">{{item.amount}}</th>
+                          <th width="40" align="center">
+                          <a href="/add_item/{{item.pk}}/">
+                              <button class="custom-button">
+                                  +
+                              </button>
+                          </a><br>
+                          <a href="/min_item/{{item.pk}}/">
+                              <button class="custom-button">
+                                  -
+                              </button>
+                          </a>
+                          </th>
+                          </table>
+                      </td>
+                      <td>{{item.description}}</td>
+                      <td align="center">{{item.date_added}}</td>
+                      <td align="center">
+                          <a href="/remove_item/{{item.pk}}/">
+                              <button class="custom-button">
+                                  Yummy! 😋
+                              </button>
+                          </a>
+                      </td>
+                  </tr>
+              {% endfor %}
+          </table>
+          <br>
+      
+          <a href="{% url 'main:create_item' %}">
+              <button class="centered-button">
+                  Add More Snacks
+              </button>
+          </a>
+      
+          <h5 align="center">Sesi terakhir login: {{ last_login }}</h5>
+      
+          <a href="{% url 'main:logout' %}">
+              <button class="centered-button">
+                  Logout
+              </button>
+          </a>
+      
+      </body>
+      
+          <script>
+              async function getItems() {
+                  return fetch("{% url 'main:get_item_json' %}").then((res) => res.json())
+              }
+              
+              async function refreshItems() {
+                  document.getElementById("item_card").innerHTML = ""
+                  const items = await getItems()
+                  let htmlString = ""
+                  items.forEach((item) => {
+                      htmlString += `<div class="card" style="width: 18rem;">
+                          <div class="card-body">
+                          <h5 class="card-title">${item.fields.name}</h5>
+                          <h6 class="card-subtitle mb-2 text-muted">Amount : ${item.fields.amount}</h6>
+                          <p class="card-text">${item.fields.description}</p>
+                          <a href="/add_item/${item.pk}/">
+                              <button class="custom-button">
+                                  +
+                              </button>
+                          </a>
+                          <a href="/min_item/${item.pk}/">
+                              <button class="custom-button">
+                                  -
+                              </button>
+                          </a>
+                          <a href="/remove_item/${item.pk}/">
+                              <button class="custom-button">
+                                  Yummy! 😋
+                              </button>
+                          </a>
+                          </div>
+                      </div>` 
+                  })
+                  
+                  document.getElementById("item_card").innerHTML = htmlString
+              }
+      
+              refreshItems()
+      
+              function addItem() {
+                  fetch("{% url 'main:create_ajax' %}", {
+                      method: "POST",
+                      body: new FormData(document.querySelector('#form'))
+                  }).then(refreshItems)
+      
+                  document.getElementById("form").reset()
+                  return false
+              }
+      
+              document.getElementById("button_add").onclick = addItem
+          </script>
+      </div>
+      
+      {% endblock content %}
+   ```
+  menambahkan script, form, dan juga button untuk ajax
+  
+  b. Menambah function baru pada views.py
+    ```
+        def get_item_json(request):
+            item = Item.objects.filter(user=request.user)
+            return HttpResponse(serializers.serialize('json', item))
+        
+        @csrf_exempt
+        def create_ajax(request):
+            if request.method == 'POST':
+                name = request.POST.get("name")
+                amount = request.POST.get("amount")
+                description = request.POST.get("description")
+                user = request.user
+        
+                new_item = Item(name=name, amount=amount, description=description, user=user)
+                new_item.save()
+                return HttpResponse(b"CREATED", status=201)
+        
+            return HttpResponseNotFound()
+    ```
+    
+  function create_ajax untuk menambah item baru menggunakan ajax dan juga get_item_json
 
+    c. Menambahkan path untuk kedua function baru tersebut
+    
+    d. Menjalankan command berikut untuk melakukan collectstatic
+    ```
+        python manage.py collectstatic
+    ```
+    
+    e. set up yml tidak lupa untuk menambahkan secret repo
 </details>
   
