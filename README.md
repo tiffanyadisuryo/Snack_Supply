@@ -978,4 +978,40 @@ Ini adalah repositori untuk Web Aplikasi Snack Supply, berikut link dari app ter
       ```
       Penambahan yang dilakukan kurang lebih mirip pada ketiganya. Saya menambahkan container untuk tempat inputnya sehingga terlihat lebih rapih dan bagus. Container kemudian diletakkan di tengah web page juga.
 </details>
+
+<details>
+<summary>Tugas 6</summary>
+1. Jelaskan perbedaan antara asynchronous programming dengan synchronous programming.
+  
+  * Asynchronous : fungsi dijalankan secara mandiri atau tidak dependen pada fungsi sebelumnya. Fungsi tidak menghalangi eksekusi dari fungsi lainnya sehingga responsifitas tinggi.
+  * Synchronous : fungsi dijalankan secara berurutan dan satu-satu. fungsi menghalangi fungsi lainnya yang ada dalam queue. Responsifitas rendah karena membutuhkan waktu yang lebih lama.
+  
+2. Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini.
+
+   even driven proramming adalah pendekatana pemrograman dimana alur eksekusi program ditentukan oleh events yang terjadi selama runtime. 
+   contohnya pada program ini adalah....
+   
+3. Jelaskan penerapan asynchronous programming pada AJAX.
+
+   pendekatan permintaan data ke server dan penangan respons dari server dilakukan secara asynchronous, sehingga tidak menghalangi fungsi lain yang sedang dijalankan.
+   
+4. Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan.
+
+  * Fetch API:
+    - penangan yang lebih baik terhadap respons dan kesalahan
+    - lebih ringan dan performa lebih baik
+    - didukung berbagai jenis data seperti JSON, XML, text, dll
+    - terintegrasi dengan cookies dan dapat mengontrol header HTTP dengan baik
+  * jQuery:
+    - sintaks lebih sederhana dan konsisten
+    - kompabilitas yang baik dengan berbagai browser
+    - fiturnya memudahkan proses pengembangan
+    - menambah beban ukuran aplikasi karena terdapat library tambahan
+   
+  menurut saya pribadi, Fetch API lebih baik digunakankarena library sudah built in, selain itu lebih mudah untuk dipahami menurut saya dan ringan untuk para pemula.
+  
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+   
+
+</details>
   
