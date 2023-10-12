@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from main.forms import ItemForm
 from django.urls import reverse
 from main.models import Item
@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 import datetime
 
 # Create your views here.
@@ -41,6 +42,24 @@ def create_item(request):
 
     context = {'form': form}
     return render(request, "create_item.html", context)
+
+def get_item_json(request):
+    item = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', item))
+
+@csrf_exempt
+def create_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_item = Item(name=name, amount=amount, description=description, user=user)
+        new_item.save()
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
 
 def show_xml(request):
     data = Item.objects.all()
@@ -109,16 +128,3 @@ def remove_item(request, id):
     data = Item.objects.get(pk=id)
     data.delete()
     return redirect('main:show_main')
-
-# def edit_item(request, id):
-#     item = Item.objects.get(pk = id)
-
-#     form = ItemForm(request.POST or None, instance=item)
-
-#     if form.is_valid() and request.method == "POST":
-#         # Simpan form dan kembali ke halaman awal
-#         form.save()
-#         return HttpResponseRedirect(reverse('main:show_main'))
-
-#     context = {'form': form}
-#     return render(request, "edit_item.html", context)

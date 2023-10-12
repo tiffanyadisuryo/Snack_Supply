@@ -7,6 +7,8 @@ from main.views import logout_user
 from main.views import add_item
 from main.views import min_item
 from main.views import remove_item
+from main.views import get_item_json
+from main.views import create_ajax
 
 app_name = 'main'
 
@@ -23,4 +25,6 @@ urlpatterns = [
     path('add_item/<int:id>/', add_item, name='add_item'),
     path('min_item/<int:id>/', min_item, name='min_item'),
     path('remove_item/<int:id>/', remove_item, name='remove_item'),
+    path('get-item/', get_item_json, name='get_item_json'),
+    path('create-ajax/', create_ajax, name='create_ajax')
 ]
